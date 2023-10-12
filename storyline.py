@@ -39,3 +39,4 @@ def get_output(user_prompt):
     facts=get_facts(first_response)
     scripts=get_scripts(facts)
     return scripts
+
