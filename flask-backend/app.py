@@ -1,45 +1,24 @@
-from flask import Flask, request, jsonify
-from utils.text_generation import generate_text, split_text
-from utils.image_generation import generate_images
-from utils.video_generation import generate_video
+from fastapi import FastAPI
+from pydantic import BaseModel
+from utils.storyline import get_output
+from utils.generate_images import generate_list_of_images
+from utils.create_video import generate_full_video
 
-app = Flask(__name__)
+app = FastAPI()
 
-@app.route('/', methods=['POST'])
-def process_input():
-    # Extract the text input from the request
-    text_input = request.json.get('text')
+class Prompt(BaseModel):
+    text: str
 
-    # Generate the text using the OpenAI API
-    text_output = generate_text(text_input)
+@app.post("/generate/")
+async def generate_response(prompt: Prompt):
+    get_storyline = get_output(prompt.text)
+    
+    scenes = ["this is a cat", "this is a dog"]
+    image_prompts = ["this is a photo of a  cat", "this is a photo of a dog"]
 
-    # Split the text output into facts and scenery descriptions
-    facts, scenery_descriptions = split_text(text_output)
 
-    # Generate images for each scenery description
-    image_filenames = generate_images(scenery_descriptions)
-
-    # Generate a video from the images
-    video_filename = generate_video(image_filenames)
-
-    # Return a JSON response with the video source, facts, scenery descriptions, and image URLs
-    response = {
-        'video_source': f'/videos/{video_filename}',
-        'facts': facts,
-        'scenery_descriptions': scenery_descriptions,
-        'image_urls': [f'/images/{filename}' for filename in image_filenames],
-    }
-    return jsonify(response)
-
-@app.route('/images/<path:path>')
-def serve_image(path):
-    # Serve the image file at the given path
-    return send_from_directory('images', path)
-
-@app.route('/videos/<path:path>')
-def serve_video(path):
-    # Serve the video file at the given path
-    return send_from_directory('videos', path)
-
-if __name__ == '__main__':
-    app.run(debug=True)
+    image_links=generate_list_of_images(image_prompts)
+    generate_full_video(image_links, scenes)
+    video_filename = generate_full_video(image_links, scenes)
+    return {"video_url": f"/videos/{video_filename}"}
+    
