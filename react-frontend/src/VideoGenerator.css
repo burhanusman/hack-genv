@@ -1,0 +1,89 @@
+.video-generator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    gap: 20px;
+  }
+  .body {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(128, 128, 128, 0.124);
+    padding: 0;
+    margin: 0; /* This will center the wrapper horizontally */
+  }
+  
+  .button-container {
+    display: flex;
+    align-items: center;
+  }
+  .media-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* This will vertically align the items in the center */
+    padding: 100px;
+  }
+  
+  .generated-text {
+    margin-top: 20px; /* This will add some space between the video and the text */
+    font-size: 1.2em; /* Increase the font size */
+    line-height: 1.5; /* Increase the line height for better readability */
+  }
+
+  .button-image {
+    height: 30%;
+    margin-left:30px;
+  }
+
+  .input-instruction {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .input-instruction img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .video-generator input {
+    width: 300px;
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  .video-generator button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 20px;
+  }
+  
+  .video-generator button:disabled {
+    background-color: #6C757D;
+  }
+  
+  .video-generator video {
+    width: 100%;
+    max-width: 800px;
+  }
+
+  .loading-spinner {
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #3498db;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
