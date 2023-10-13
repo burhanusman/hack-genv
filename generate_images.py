@@ -24,6 +24,8 @@ def generate_image(prompt):
     input=input_payload)
     return output_link
 
+
+
 def generate_list_of_images(list_of_prompts):
     with ThreadPoolExecutor() as executor:
         output_links = list(executor.map(generate_image, list_of_prompts))

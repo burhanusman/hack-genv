@@ -10,7 +10,6 @@ def first_level_request(concept):
     system_message_prompt = SystemMessagePromptTemplate.from_template(template)
     human_message_prompt = HumanMessagePromptTemplate.from_template(human_template)
     chat_prompt = ChatPromptTemplate.from_messages([system_message_prompt, human_message_prompt])
-    
     formated_prompt=chat_prompt.format_messages(concept=concept)
     resp_chat = chat.predict_messages(formated_prompt)
     return resp_chat
