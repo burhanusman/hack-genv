@@ -1,0 +1,6 @@
+plaintext
+*.mp3
+*.mp4
+*.jpg
+.DS_Store
+*.pyc
